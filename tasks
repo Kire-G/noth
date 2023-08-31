@@ -1,26 +1,24 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 int main() {
-    int *dynamicArray;
-    int arraySize = 10;
+    float floatNumber = 123.456789;
+    double doubleNumber = 987.654321;
+    int intNumber = 123456789;
 
-    dynamicArray = (int *)malloc(arraySize * sizeof(int));
+    // Before casting
+    printf("Original float: %f\n", floatNumber);
+    printf("Original double: %lf\n", doubleNumber);
+    printf("Original int: %d\n", intNumber);
 
-    if (dynamicArray == NULL) {
-        printf("Memory allocation failed.\n");
-        return 1;
-    }
+    // Typecasting with data loss
+    int intFromFloat = (int)floatNumber;
+    float floatFromDouble = (float)doubleNumber;
+    char charFromInt = (char)intNumber;
 
-    for (int i = 0; i < arraySize; i++) {
-        dynamicArray[i] = i + 1;
-    }
-
-    for (int i = 0; i < arraySize; i++) {
-        printf("Element %d: %d\n", i, dynamicArray[i]);
-    }
-
-    free(dynamicArray);
+    // After casting
+    printf("Int from float: %d\n", intFromFloat);
+    printf("Float from double: %f\n", floatFromDouble);
+    printf("Char from int: %c\n", charFromInt);
 
     return 0;
 }
