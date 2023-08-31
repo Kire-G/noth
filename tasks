@@ -1,20 +1,13 @@
 #include <stdio.h>
 
-union IntFloatUnion {
-    int intValue;
-    float floatValue;
-};
-
 int main() {
-    union IntFloatUnion u;
+    unsigned short int value = 0xABCD;
 
-    u.floatValue = 3.14f;
-    printf("Float value: %f\n", u.floatValue);
-    printf("Int value: %d\n", u.intValue);
+    unsigned char msb = (value >> 8) & 0xFF;
+    unsigned char lsb = value & 0xFF;
 
-    u.intValue = 42;
-    printf("Int value: %d\n", u.intValue);
-    printf("Float value: %f\n", u.floatValue);
+    printf("Most Significant Byte: 0x%02X\n", msb);
+    printf("Least Significant Byte: 0x%02X\n", lsb);
 
     return 0;
 }
