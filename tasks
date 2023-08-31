@@ -1,17 +1,21 @@
 #include <stdio.h>
 
-void assignValueMinusOne(int *numPtr) {
-    *numPtr = -1;
-}
+struct BitfieldStruct {
+    unsigned int a : 3;
+    unsigned int b : 3;
+    unsigned int c : 2;
+};
 
 int main() {
-    int num = 0;
+    struct BitfieldStruct myStruct;
 
-    printf("%d\n", num);
+    myStruct.a = 5;
+    myStruct.b = 3;
+    myStruct.c = 2;
 
-    assignValueMinusOne(&num);
-
-    printf("%d\n", num);
+    printf("%u\n", myStruct.a);
+    printf("%u\n", myStruct.b);
+    printf("%u\n", myStruct.c);
 
     return 0;
 }
