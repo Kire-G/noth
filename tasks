@@ -1,13 +1,21 @@
 #include <stdio.h>
 
+enum Seasons {
+    SPRING,
+    SUMMER,
+    FALL,
+    WINTER
+};
+
 int main() {
-    unsigned short int value = 0xABCD;
+    enum Seasons currentSeason = SUMMER;
 
-    unsigned char msb = (value >> 8) & 0xFF;
-    unsigned char lsb = value & 0xFF;
+    printf("Value of SPRING: %d\n", SPRING);
+    printf("Value of SUMMER: %d\n", SUMMER);
+    printf("Value of FALL: %d\n", FALL);
+    printf("Value of WINTER: %d\n", WINTER);
 
-    printf("Most Significant Byte: 0x%02X\n", msb);
-    printf("Least Significant Byte: 0x%02X\n", lsb);
+    printf("Current season: %d\n", currentSeason);
 
     return 0;
 }
