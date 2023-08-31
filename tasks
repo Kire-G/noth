@@ -1,35 +1,19 @@
 #include <stdio.h>
-#include <stdlib.h>
-
-struct BitfieldStruct {
-    unsigned int a : 3;
-    unsigned int b : 3;
-    unsigned int c : 2;
-};
 
 int main() {
-    int arraySize = 5;
-    struct BitfieldStruct *dynamicArray = NULL;
+    int sourceNumber = 5000;
+    int targetNumber = 0;
 
-    dynamicArray = (struct BitfieldStruct *)malloc(arraySize * sizeof(struct BitfieldStruct));
+    int bit5 = (sourceNumber >> 5) & 1;
+    int bit6 = (sourceNumber >> 6) & 1;
+    int bit7 = (sourceNumber >> 7) & 1;
 
-    if (dynamicArray == NULL) {
-        printf("Memory allocation failed.\n");
-        return 1;
-    }
+    targetNumber |= (bit5 << 0);
+    targetNumber |= (bit6 << 1);
+    targetNumber |= (bit7 << 2);
 
-    for (int i = 0; i < arraySize; i++) {
-        dynamicArray[i].a = i;
-        dynamicArray[i].b = i + 1;
-        dynamicArray[i].c = i + 2;
-    }
-
-    for (int i = 0; i < arraySize; i++) {
-        printf("Struct %d: a=%u, b=%u, c=%u\n", i, dynamicArray[i].a, dynamicArray[i].b, dynamicArray[i].c);
-    }
-
-    free(dynamicArray);
+    printf("Source number: %d (0x%X)\n", sourceNumber, sourceNumber);
+    printf("Target number: %d (0x%X)\n", targetNumber, targetNumber);
 
     return 0;
 }
-
