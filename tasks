@@ -2,12 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 
-void swap(char *a, char *b) {
-    char temp = *a;
-    *a = *b;
-    *b = temp;
-}
-
 void generate_permutations(char *str[], int left, int right) {
     if (left == right) {
         printf("%s %s %s\n", str[0], str[1], str[2]);
@@ -15,9 +9,15 @@ void generate_permutations(char *str[], int left, int right) {
     }
 
     for (int i = left; i <= right; i++) {
-        swap(str[left], str[i]);
+        char *temp = str[left];
+        str[left] = str[i];
+        str[i] = temp;
+
         generate_permutations(str, left + 1, right);
-        swap(str[left], str[i]);
+
+        temp = str[left];
+        str[left] = str[i];
+        str[i] = temp;
     }
 }
 
