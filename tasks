@@ -1,11 +1,26 @@
 #include <stdio.h>
-
-#define ABS(x) ((x) < 0 ? -(x) : (x))
+#include <stdlib.h>
 
 int main() {
-    int number = -7;
-    
-    printf("Absolute value of %d is %d\n", number, ABS(number));
+    int *dynamicArray;
+    int arraySize = 10;
+
+    dynamicArray = (int *)malloc(arraySize * sizeof(int));
+
+    if (dynamicArray == NULL) {
+        printf("Memory allocation failed.\n");
+        return 1;
+    }
+
+    for (int i = 0; i < arraySize; i++) {
+        dynamicArray[i] = i + 1;
+    }
+
+    for (int i = 0; i < arraySize; i++) {
+        printf("Element %d: %d\n", i, dynamicArray[i]);
+    }
+
+    free(dynamicArray);
 
     return 0;
 }
