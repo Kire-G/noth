@@ -1,31 +1,17 @@
-//4
 #include <stdio.h>
-#include <string.h>
 
-void generate_permutations(char *str[], int left, int right) {
-    if (left == right) {
-        printf("%s %s %s\n", str[0], str[1], str[2]);
-        return;
-    }
-
-    for (int i = left; i <= right; i++) {
-        char *temp = str[left];
-        str[left] = str[i];
-        str[i] = temp;
-
-        generate_permutations(str, left + 1, right);
-
-        temp = str[left];
-        str[left] = str[i];
-        str[i] = temp;
-    }
+void assignValueMinusOne(int *numPtr) {
+    *numPtr = -1;
 }
 
 int main() {
-    char *strings[] = {"one", "two", "the"};
-    int num_strings = sizeof(strings) / sizeof(strings[0]);
+    int num = 0;
 
-    generate_permutations(strings, 0, num_strings - 1);
+    printf("%d\n", num);
+
+    assignValueMinusOne(&num);
+
+    printf("%d\n", num);
 
     return 0;
 }
