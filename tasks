@@ -1,21 +1,25 @@
 #include <stdio.h>
 
-enum Seasons {
-    SPRING,
-    SUMMER,
-    FALL,
-    WINTER
-};
-
 int main() {
-    enum Seasons currentSeason = SUMMER;
+    int num = 10; // Example integer
 
-    printf("Value of SPRING: %d\n", SPRING);
-    printf("Value of SUMMER: %d\n", SUMMER);
-    printf("Value of FALL: %d\n", FALL);
-    printf("Value of WINTER: %d\n", WINTER);
+    // Left shift operations
+    int leftShift1 = num << 1;
+    int leftShift2 = num << 2;
+    int leftShift3 = num << 3;
 
-    printf("Current season: %d\n", currentSeason);
+    // Right shift operations
+    int rightShift1 = num >> 1;
+    int rightShift2 = num >> 2;
+    int rightShift3 = num >> 3;
+
+    printf("Original number: %d\n", num);
+    printf("Left Shift 1: %d\n", leftShift1);
+    printf("Left Shift 2: %d\n", leftShift2);
+    printf("Left Shift 3: %d\n", leftShift3);
+    printf("Right Shift 1: %d\n", rightShift1);
+    printf("Right Shift 2: %d\n", rightShift2);
+    printf("Right Shift 3: %d\n", rightShift3);
 
     return 0;
 }
