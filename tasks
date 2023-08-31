@@ -1,21 +1,20 @@
 #include <stdio.h>
 
-struct BitfieldStruct {
-    unsigned int a : 3;
-    unsigned int b : 3;
-    unsigned int c : 2;
+union IntFloatUnion {
+    int intValue;
+    float floatValue;
 };
 
 int main() {
-    struct BitfieldStruct myStruct;
+    union IntFloatUnion u;
 
-    myStruct.a = 5;
-    myStruct.b = 3;
-    myStruct.c = 2;
+    u.floatValue = 3.14f;
+    printf("Float value: %f\n", u.floatValue);
+    printf("Int value: %d\n", u.intValue);
 
-    printf("%u\n", myStruct.a);
-    printf("%u\n", myStruct.b);
-    printf("%u\n", myStruct.c);
+    u.intValue = 42;
+    printf("Int value: %d\n", u.intValue);
+    printf("Float value: %f\n", u.floatValue);
 
     return 0;
 }
