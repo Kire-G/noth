@@ -1,24 +1,35 @@
 #include <stdio.h>
+#include <stdlib.h>
+
+struct BitfieldStruct {
+    unsigned int a : 3;
+    unsigned int b : 3;
+    unsigned int c : 2;
+};
 
 int main() {
-    float floatNumber = 123.456789;
-    double doubleNumber = 987.654321;
-    int intNumber = 123456789;
+    int arraySize = 5;
+    struct BitfieldStruct *dynamicArray = NULL;
 
-    // Before casting
-    printf("Original float: %f\n", floatNumber);
-    printf("Original double: %lf\n", doubleNumber);
-    printf("Original int: %d\n", intNumber);
+    dynamicArray = (struct BitfieldStruct *)malloc(arraySize * sizeof(struct BitfieldStruct));
 
-    // Typecasting with data loss
-    int intFromFloat = (int)floatNumber;
-    float floatFromDouble = (float)doubleNumber;
-    char charFromInt = (char)intNumber;
+    if (dynamicArray == NULL) {
+        printf("Memory allocation failed.\n");
+        return 1;
+    }
 
-    // After casting
-    printf("Int from float: %d\n", intFromFloat);
-    printf("Float from double: %f\n", floatFromDouble);
-    printf("Char from int: %c\n", charFromInt);
+    for (int i = 0; i < arraySize; i++) {
+        dynamicArray[i].a = i;
+        dynamicArray[i].b = i + 1;
+        dynamicArray[i].c = i + 2;
+    }
+
+    for (int i = 0; i < arraySize; i++) {
+        printf("Struct %d: a=%u, b=%u, c=%u\n", i, dynamicArray[i].a, dynamicArray[i].b, dynamicArray[i].c);
+    }
+
+    free(dynamicArray);
 
     return 0;
 }
+
