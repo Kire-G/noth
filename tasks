@@ -1,19 +1,186 @@
 #include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <windows.h>
 
-int main() {
-    int sourceNumber = 5000;
-    int targetNumber = 0;
+int i, j, height = 7, width = 7;
+int gameover, score;
+int x, y, fruitx, fruity, flag;
 
-    int bit5 = (sourceNumber >> 5) & 1;
-    int bit6 = (sourceNumber >> 6) & 1;
-    int bit7 = (sourceNumber >> 7) & 1;
+int tailX[100], tailY[100];
+int ntail;
 
-    targetNumber |= (bit5 << 0);
-    targetNumber |= (bit6 << 1);
-    targetNumber |= (bit7 << 2);
+void setup()
+{
+    gameover = 0;
 
-    printf("Source number: %d (0x%X)\n", sourceNumber, sourceNumber);
-    printf("Target number: %d (0x%X)\n", targetNumber, targetNumber);
+    // Initialize the snake's position in the middle of the grid.
+    x = height / 2;
+    y = width / 2;
 
+generate_fruit:
+    // Place the fruit at a random position within the grid.
+    fruitx = rand() % 7;
+    if (fruitx == 0)
+        goto generate_fruit;
+generate_fruity:
+    fruity = rand() % 7;
+    if (fruity == 0)
+        goto generate_fruity;
+
+    // Initialize the score and set the initial direction to right.
+    score = 0;
+    ntail = 0;
+    flag = 0;
+}
+
+void draw()
+{
+    system("cls");
+    for (i = 0; i < height; i++)
+    {
+        for (j = 0; j < width; j++)
+        {
+            if (i == 0 || i == width - 1 || j == 0 || j == height - 1)
+            {
+                printf("#");
+            }
+            else
+            {
+                if (i == x && j == y)
+                    printf("O");
+                else if (i == fruitx && j == fruity)
+                    printf("F");
+                else
+                {
+                    int isprinttail = 0;
+                    for (int k = 0; k < ntail; k++)
+                    {
+                        if (i == tailX[k] && j == tailY[k])
+                        {
+                            printf("o");
+                            isprinttail = 1;
+                        }
+                    }
+                    if (isprinttail == 0)
+                        printf(" ");
+                }
+            }
+        }
+        printf("\n");
+    }
+    printf("Score = %d\n", score);
+    printf("Press X to quit the game");
+}
+
+void input()
+{
+    if (_kbhit())
+    {
+        switch (_getch())
+        {
+        case 'a':
+            flag = 1;
+            break;
+        case 's':
+            flag = 2;
+            break;
+        case 'd':
+            flag = 3;
+            break;
+        case 'w':
+            flag = 4;
+            break;
+        case 'x':
+            gameover = 1;
+            break;
+        }
+    }
+}
+
+void logic()
+{
+    Sleep(0.01);
+    int prevX = tailX[0];
+    int prevY = tailY[0];
+    int prev2X, prev2Y;
+    tailX[0] = x;
+    tailY[0] = y;
+    for (i = 1; i < ntail; i++)
+    {
+        prev2X = tailX[i];
+        prev2Y = tailY[i];
+        tailX[i] = prevX;
+        tailY[i] = prevY;
+        prevX = prev2X;
+        prevY = prev2Y;
+    }
+    switch (flag)
+    {
+    case 1:
+        y--;
+        break;
+    case 2:
+        x++;
+        break;
+    case 3:
+        y++;
+        break;
+    case 4:
+        x--;
+        break;
+    default:
+        break;
+    }
+
+    // Check if the snake hits the boundary
+    if (x < 0 || x >= height || y < 0 || y >= width)
+    {
+        gameover = 1;
+    }
+
+    // Check if the snake eats the fruit
+    if (x == fruitx && y == fruity)
+    {
+        score += 10;
+        generate_fruit:
+        fruitx = rand() % 7;
+        if (fruitx == 0)
+            goto generate_fruit;
+        generate_fruity:
+        fruity = rand() % 7;
+        if (fruity == 0)
+            goto generate_fruity;
+        ntail++;
+    }
+
+    // Check if the snake hits itself
+    for (int k = 0; k < ntail; k++)
+    {
+        if (tailX[k] == x && tailY[k] == y)
+        {
+            gameover = 1;
+        }
+    }
+}
+
+int main()
+{
+    int m, n;
+    char c;
+    label:
+    setup();
+    while (!gameover)
+    {
+        draw();
+        input();
+        logic();
+    }
+    printf("Press Y to play again or any other key to exit: ");
+    scanf(" %c", &c);
+    if (c == 'Y' || c == 'y')
+    {
+        goto label;
+    }
     return 0;
 }
